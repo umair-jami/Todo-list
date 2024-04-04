@@ -1,13 +1,39 @@
 #! usr/bin/env node
 
 import inquirer from "inquirer"
-let todos=[]
 
-let condition=true
+//simple todo list
 
-while(condition){
-    let addTask=await inquirer.prompt(
-        [
+// let todos=[]
+
+// let condition=true
+
+// while(condition){
+//     let addTask=await inquirer.prompt(
+//         [
+//             {
+//                 name:"todo",
+//                 type:"input",
+//                 message:"What you want to add in your Todos?"
+//             },
+//             {
+//                 name:"addMore",
+//                 type:"confirm",
+//                 message:"Do you want to add more",
+//                 default:"false"
+//             }
+//         ]
+//     ) 
+//     todos.push(addTask.todo)
+//     condition=addTask.addMore
+//     console.log(todos)
+    
+// }
+
+    const todos:string[]=[];
+
+    while(true){
+        const addTask=await inquirer.prompt([
             {
                 name:"todo",
                 type:"input",
@@ -16,14 +42,48 @@ while(condition){
             {
                 name:"addMore",
                 type:"confirm",
-                message:"Do you want to add more",
-                default:"false"
+                message:"Do you want to add More?",
+                default:false
             }
-        ]
-    ) 
-    todos.push(addTask.todo)
-    condition=addTask.addMore
-    console.log(todos)
-    
-}
+        ]);
+        todos.push(addTask.todo)
+
+        if(!addTask.addMore){
+            break;
+        }
+        console.log("Your Todos:")
+        todos.forEach( (task,index) => {
+            console.log(`${index+1} . ${task}`)
+        });
+    }
+    const removeTask=await inquirer.prompt([
+        {
+            name:"remove",
+            type:"confirm",
+            message:"Do you want to remove a task?",
+            default:false
+        }
+    ]);
+
+    if(removeTask.remove){
+        const removeIndex=await inquirer.prompt([
+            {
+                name:"index",
+                type:"number",
+                message:"Enter the index of the task you want to remove:"
+            }
+        ]);
+        if(removeIndex.index >=1 && removeIndex.index<=todos.length){
+            todos.splice(removeIndex.index-1,1);
+            console.log("Task removes successfully!" )
+        }else{
+            console.log("invlid index. Task removal failed.")
+        }
+    }
+
+
+
+
+
+
 

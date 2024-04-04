@@ -36,8 +36,12 @@ while (true) {
             type: "confirm",
             message: "Do you want to add More?",
             default: false
-        }
+        },
     ]);
+    if (addTask.todo.trim() === "") {
+        console.log("Please insert a valid item.");
+        continue; // Skip adding an empty task
+    }
     todos.push(addTask.todo);
     if (!addTask.addMore) {
         break;

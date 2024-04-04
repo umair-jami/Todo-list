@@ -44,8 +44,14 @@ import inquirer from "inquirer"
                 type:"confirm",
                 message:"Do you want to add More?",
                 default:false
-            }
+            },
+            
+
         ]);
+        if (addTask.todo.trim() === "") {
+            console.log("Please insert a valid item.");
+            continue; // Skip adding an empty task
+        }
         todos.push(addTask.todo)
 
         if(!addTask.addMore){
@@ -56,6 +62,8 @@ import inquirer from "inquirer"
             console.log(`${index+1} . ${task}`)
         });
     }
+
+    
     const removeTask=await inquirer.prompt([
         {
             name:"remove",
@@ -64,7 +72,6 @@ import inquirer from "inquirer"
             default:false
         }
     ]);
-
     if(removeTask.remove){
         const removeIndex=await inquirer.prompt([
             {
@@ -73,6 +80,7 @@ import inquirer from "inquirer"
                 message:"Enter the index of the task you want to remove:"
             }
         ]);
+            
         if(removeIndex.index >=1 && removeIndex.index<=todos.length){
             todos.splice(removeIndex.index-1,1);
             console.log("Task removes successfully!" )
@@ -85,6 +93,7 @@ import inquirer from "inquirer"
             console.log("invlid index. Task removal failed.")
         }
     }
+    
 
 
 

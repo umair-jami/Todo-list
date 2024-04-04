@@ -66,6 +66,10 @@ if (removeTask.remove) {
     if (removeIndex.index >= 1 && removeIndex.index <= todos.length) {
         todos.splice(removeIndex.index - 1, 1);
         console.log("Task removes successfully!");
+        console.log("Remaining items in the array:");
+        todos.forEach((task, index) => {
+            console.log(`${index + 1}. ${task}`);
+        });
     }
     else {
         console.log("invlid index. Task removal failed.");
